@@ -39,7 +39,7 @@ oscilation that has been going on
 
 import time
 import math
-import rospy
+import rclpy
 import argparse
 from std_msgs.msg import String, Int16
 from kite_funcs import getresist, conmaxleft, conmaxright
@@ -59,7 +59,7 @@ CIRC_ACT = 2 * math.pi * DIST_ACT
 
 
 def listen_motormsg():
-    rospy.Subscriber('motormsg', Int16, callback, queue_size=1)
+    rclpy.Subscriber('motormsg', Int16, callback, queue_size=1)
 
 
 def callback(data):
@@ -76,14 +76,14 @@ def get_motorv():
 def mock_kiteangle(message):
     global motorvalue
     global barangle
-    pub = rospy.Publisher(message, Int16, queue_size=1)
-    rospy.init_node('mock_arduino', anonymous=False)
-    rate = rospy.Rate(20)  # Cycles per Second
+    pub = rclpy.Publisher(message, Int16, queue_size=1)
+    rclpy.init_node('mock_arduino', anonymous=False)
+    rate = rclpy.Rate(20)  # Cycles per Second
     # left_act_pos = get_coord(0-DIST_ACT, 0, barangle) not convinced this serves purpose
     loop_time = round(time.monotonic() * 1000)
     listen_motormsg()
 
-    while not rospy.is_shutdown():
+    while not rclpy.is_shutdown():
         get_motorv()
         print('motorv', motorvalue)
         cycle_time = round(time.monotonic() * 1000) - loop_time
@@ -136,5 +136,5 @@ if __name__ == '__main__':
                             help='message to generate either kiteangle or mockangle')
         args = parser.parse_args()
         new_angle = mock_kiteangle(args.message)
-    except rospy.ROSInterruptException:
+    except rclpy.ROSInterruptException:
         pass

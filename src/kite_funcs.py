@@ -1,23 +1,16 @@
 import os
 import numpy as np
 import cv2
-from dotenv import find_dotenv, load_dotenv
-load_dotenv(find_dotenv())
+#TODO - get some settings for this was in .env but that
+#not loading on windows for ROS2
 
-try:
-    conmaxright=int(os.getenv("envmaxright"))
-    conmaxleft=int(os.getenv("envmaxleft"))
-    conresistleft=int(os.getenv("envresistleft"))
-    conresistright=int(os.getenv("envresistright"))
-    conresistcentre=int(os.getenv("envresistcentre"))
-except TypeError:
-    conmaxright=9999
-    conmaxleft=0
-    conresistleft=9999
-    conresistright=99999
-    conresistcentre=0
-    print("An exception occurred")
-    #may now set value to something to force calibration
+
+conmaxright=9999
+conmaxleft=0
+conresistleft=9999
+conresistright=99999
+conresistcentre=0
+
 
 # http://www.pyimagesearch.com/2014/08/04/opencv-python-color-detection/
 # define the list of boundaries
