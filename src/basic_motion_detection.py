@@ -54,7 +54,7 @@ import imutils
 from move_func import get_heading_points, get_angled_corners
 from mainclasses import Kite, Controls, Base, Config, calc_route
 from move_func import get_angle
-from talker import kite_pos, KiteImage, motor_msg, init_motor_msg, init_ros
+from talker import motor_msg, init_motor_msg, init_ros
 from basic_listen_barangle import listen_kiteangle, get_actmockangle, get_angles
 from listen_joystick import listen_joystick, get_joystick
 from kite_funcs import kitemask, get_action
@@ -315,7 +315,7 @@ else:
 es = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (10, 10))
 kernel = np.ones((5, 5), np.uint8)
 background = None
-imagemessage = KiteImage()
+#imagemessage = KiteImage()
 init_ros()
 init_motor_msg()
 
@@ -488,7 +488,7 @@ while True:
     display_stats()
     display_flight(width)
     display_base(width)
-    kite_pos(kite.x, kite.y, kite.kiteangle, kite.dX, kite.dY, 0, 0)
+    # kite_pos(kite.x, kite.y, kite.kiteangle, kite.dX, kite.dY, 0, 0)
     doaction = True if control.motortest or base.calibrate or control.inputmode == 3 else False
 
     if not doaction:
